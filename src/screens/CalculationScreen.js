@@ -1,17 +1,10 @@
-import {
-    StyleSheet,
-    Text,
-    View,
-    SafeAreaView,
-    StatusBar,
-    FlatList,
-    TextInput,
-} from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, StatusBar } from "react-native";
 import React from "react";
 import colors from "../constants/colors";
 import { Button } from "../components/Button";
 import buttons from "../constants/buttons";
 import { useSelector } from "react-redux";
+
 export const CalculationScreen = () => {
     const state = useSelector((state) => state);
 
@@ -20,9 +13,7 @@ export const CalculationScreen = () => {
         <SafeAreaView style={styles.container}>
             <StatusBar barStyle="light-content" />
             <View style={styles.display}>
-                <Text style={styles.result}>
-                    {state.currentNumber || state.previousNumber}
-                </Text>
+                <Text style={styles.result}>{state.outputValue}</Text>
             </View>
             <View style={styles.buttonBox}>
                 {buttons.map((item, index) => {
@@ -37,10 +28,11 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: colors.darkTheme,
         flex: 1,
-        paddingHorizontal: 20,
+        paddingLeft: 10,
+        paddingRight: 5,
     },
     display: {
-        height: "40%",
+        flex: 2,
         flexDirection: "column",
         justifyContent: "flex-end",
         alignItems: "flex-end",
@@ -53,9 +45,9 @@ const styles = StyleSheet.create({
     },
     buttonBox: {
         flexDirection: "row",
-        justifyContent: "center",
         borderRadius: 5,
         width: "100%",
         flexWrap: "wrap",
+        flex: 3,
     },
 });

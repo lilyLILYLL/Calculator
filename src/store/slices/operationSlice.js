@@ -3,83 +3,59 @@ import { useDispatch } from "react-redux";
 
 const operations = createSlice({
     name: "operation",
-    initialState: { previousNumber: "", currentNumber: "0", operator: "" },
+    initialState: {
+        inputValue: "0",
+        outputValue: "0",
+        chosenOperator: "",
+    },
     reducers: {
         numberPress(state, action) {
-            //update currentNumber's state
-            state.currentNumber =
-                state.currentNumber === "0"
+            state.inputValue =
+                state.inputValue === "0"
                     ? action.payload
-                    : state.currentNumber + action.payload;
+                    : state.inputValue + action.payload;
+            // input values could('123+123' or '123' or '123+')
+            // we split the inputValue based on 'chosenOprator',
+            //if there exits a number behind the operator,(i.e. '123+123') we asign it as a outputValue(the value is displayed on Screen)
+            // otherwise,(i.e. '123' or '123+'), we display the first value
+            const numbers = state.inputValue.split(
+                state.chosenOperator === "" ? "#" : state.chosenOperator
+            );
+            state.outputValue = numbers[1] ? numbers[1] : numbers[0];
+            console.log(numbers);
         },
 
         operatorPress(state, action) {
-            //payload here is new operator, we set new operator to state when a operation is completed
-            if (state.operator === "") {
-                state.previousNumber = state.currentNumber;
-                state.operator = action.payload;
-                state.currentNumber = "";
-            } // this case is when we change operator instead of entering new number
-            else if (state.currentNumber === "") {
-                state.operator = action.payload;
-            } // this case when choose an operator after entering a number
-            else {
-                switch (state.operator) {
-                    case "+":
-                        state.previousNumber = (
-                            parseFloat(state.previousNumber) +
-                            parseFloat(state.currentNumber)
-                        ).toString();
-                        break;
-                    case "-":
-                        state.previousNumber = (
-                            parseFloat(state.previousNumber) -
-                            parseFloat(state.currentNumber)
-                        ).toString();
-                        break;
-                    case "*":
-                        state.previousNumber = (
-                            parseFloat(state.previousNumber) *
-                            parseFloat(state.currentNumber)
-                        ).toString();
-                        break;
-                    case "/":
-                        state.previousNumber = (
-                            parseFloat(state.previousNumber) /
-                            parseFloat(state.currentNumber)
-                        ).toString();
-                        break;
-                }
-                state.operator = action.payload;
-                state.currentNumber = "";
+            state.chosenOperator = action.payload;
+            const lastElement = state.inputValue.slice(-1);
+            //is the last element is not a number (i.e. '123+'), it means we're trying to change the opartor
+            // we remove the last element in inputValue, then add new operator into inputValue
+            if (isNaN(lastElement)) {
+                state.inputValue =
+                    state.inputValue.slice(0, -1) + action.payload;
             }
-        },
-        reset(state) {
-            state.currentNumber = "0";
-            state.previousNumber = "";
-            state.operator = "";
+            // there are 2 cases here: inputValue might be '123' or '123+123'
+            else {
+                // update inputValue and adding new operator into inputValue
+                state.inputValue =
+                    eval(state.inputValue).toString() + action.payload;
+
+                // update new outputValue
+                const numbers = state.inputValue.split(state.chosenOperator);
+                state.outputValue = numbers[1] ? numbers[1] : numbers[0];
+                console.log(numbers);
+            }
+            // change chosen opeartor of state
         },
 
-        modifierButtonPress(state, action) {
-            if (action.payload === "+/-") {
-                state.currentNumber = (
-                    0 - parseFloat(state.currentNumber)
-                ).toString();
-            }
-            if (action.payload === "%") {
-                if (state.previousNumber === "") {
-                    state.currentNumber = (
-                        parseFloat(state.currentNumber) / 100
-                    ).toString();
-                } else {
-                    state.currentNumber = (
-                        (parseFloat(state.previousNumber) *
-                            parseFloat(state.currentNumber)) /
-                        100
-                    ).toString();
-                }
-            }
+        // reset everything
+        reset(state) {
+            state.inputValue = "0";
+            state.outputValue = "0";
+            state.chosenOperator = "";
         },
+
+        modifierButtonPress(state, action) {},
     },
 });
 

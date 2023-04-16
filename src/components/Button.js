@@ -43,7 +43,7 @@ export const Button = ({ item }) => {
             };
         }
     }
-    const width = item.name === "0" ? 185 : 85;
+    const width = item.name === "0" ? 180 : 85;
     const customStyle = [
         styles.button,
         { backgroundColor: backgroundColor, width: width },
@@ -61,12 +61,13 @@ export const Button = ({ item }) => {
 
 const styles = StyleSheet.create({
     button: {
-        height: 85,
-        width: 85,
+        height: "43%",
+        width: "21%",
         borderRadius: 50,
         justifyContent: "center",
         alignItems: "center",
-        margin: 7,
+        marginHorizontal: 5,
+        marginVertical: 4,
     },
     text: {
         fontSize: 35,
