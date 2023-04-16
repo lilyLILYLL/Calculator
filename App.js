@@ -1,12 +1,12 @@
-import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
+import { Provider } from "react-redux";
 import { CalculationScreen } from "./src/screens/CalculationScreen";
-import { ContextProvider } from "./src/contexts/Context";
+import { store } from "./src/store";
 export default function App() {
     return (
-        <ContextProvider>
+        <Provider store={store}>
             <CalculationScreen />
-        </ContextProvider>
+        </Provider>
     );
 }
 

@@ -1,48 +1,49 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React, { useContext } from "react";
 import colors from "../constants/colors";
-import { Context } from "../contexts/Context";
 import { ButtonTypes } from "../constants/buttons";
-
-export const Button = ({ name, type, value }) => {
-    const { numberPress, operatorPress, clear } = useContext(Context);
-
-    // functionality
-    const handleEnterNumber = (value) => {
-        numberPress(value);
-    };
-
-    // css
-    const handleEnterOperator = (value) => {
-        operatorPress(value);
-    };
-
-    const handleClear = () => {
-        clear();
-    };
+import {
+    numberPress,
+    operatorPress,
+    modifierButtonPress,
+    reset,
+} from "../store";
+import { useDispatch } from "react-redux";
+export const Button = ({ item }) => {
+    const dispatch = useDispatch();
 
     let backgroundColor;
     let textColor;
     let handleOnPress;
-    if (type === ButtonTypes.NUMBER) {
+    if (item.type === ButtonTypes.NUMBER) {
         backgroundColor = colors.darkgray;
         textColor = colors.white;
         handleOnPress = () => {
-            handleEnterNumber(value);
+            dispatch(numberPress(item.value));
         };
-    } else if (type === ButtonTypes.OPERATOR) {
+    } else if (item.type === ButtonTypes.OPERATOR) {
         backgroundColor = colors.yellow;
         textColor = colors.white;
         handleOnPress = () => {
-            handleEnterOperator(value);
+            dispatch(operatorPress(item.value));
         };
     } else {
         backgroundColor = colors.lightgray;
-        handleOnPress = () => {
-            handleClear();
-        };
+        if (item.name === "AC") {
+            handleOnPress = () => {
+                dispatch(reset());
+            };
+        } else if (item.value === "+/-") {
+            handleOnPress = () => {
+                dispatch(modifierButtonPress("+/-"));
+            };
+        } else {
+            handleOnPress = () => {
+                dispatch(modifierButtonPress("%"));
+            };
+        }
     }
-    const width = name === "0" ? 185 : 85;
+    const width = item.name === "0" ? 185 : 85;
     const customStyle = [
         styles.button,
         { backgroundColor: backgroundColor, width: width },
@@ -52,7 +53,7 @@ export const Button = ({ name, type, value }) => {
     return (
         <TouchableOpacity onPress={handleOnPress}>
             <View style={customStyle}>
-                <Text style={customTextStyle}>{name}</Text>
+                <Text style={customTextStyle}>{item.name}</Text>
             </View>
         </TouchableOpacity>
     );

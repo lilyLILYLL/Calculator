@@ -7,33 +7,26 @@ import {
     FlatList,
     TextInput,
 } from "react-native";
-import React, { useContext } from "react";
+import React from "react";
 import colors from "../constants/colors";
 import { Button } from "../components/Button";
 import buttons from "../constants/buttons";
-import { Context } from "../contexts/Context";
+import { useSelector } from "react-redux";
 export const CalculationScreen = () => {
-    const {
-        state: { currentValue, previousValue },
-    } = useContext(Context);
+    const state = useSelector((state) => state);
+
+    console.log(state);
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar barStyle="light-content" />
             <View style={styles.display}>
                 <Text style={styles.result}>
-                    {currentValue ? currentValue : previousValue}
+                    {state.currentNumber || state.previousNumber}
                 </Text>
             </View>
             <View style={styles.buttonBox}>
                 {buttons.map((item, index) => {
-                    return (
-                        <Button
-                            key={index}
-                            name={item.name}
-                            type={item.type}
-                            value={item.value}
-                        />
-                    );
+                    return <Button key={index} item={item} />;
                 })}
             </View>
         </SafeAreaView>
