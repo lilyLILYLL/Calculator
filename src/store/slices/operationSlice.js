@@ -10,19 +10,11 @@ const operations = createSlice({
     },
     reducers: {
         numberPress(state, action) {
+            console.log(action.payload);
             state.inputValue =
-                state.inputValue === "0"
+                state.inputValue === "0" && action.payload !== ","
                     ? action.payload
                     : state.inputValue + action.payload;
-            // input values could('123+123' or '123' or '123+')
-            // we split the inputValue based on 'chosenOprator',
-            //if there exits a number behind the operator,(i.e. '123+123') we asign it as a outputValue(the value is displayed on Screen)
-            // otherwise,(i.e. '123' or '123+'), we display the first value
-            const numbers = state.inputValue.split(
-                state.chosenOperator === "" ? "#" : state.chosenOperator
-            );
-            state.outputValue = numbers[1] ? numbers[1] : numbers[0];
-            console.log(numbers);
         },
 
         operatorPress(state, action) {
@@ -39,13 +31,7 @@ const operations = createSlice({
                 // update inputValue and adding new operator into inputValue
                 state.inputValue =
                     eval(state.inputValue).toString() + action.payload;
-
-                // update new outputValue
-                const numbers = state.inputValue.split(state.chosenOperator);
-                state.outputValue = numbers[1] ? numbers[1] : numbers[0];
-                console.log(numbers);
             }
-            // change chosen opeartor of state
         },
 
         // reset everything
@@ -55,7 +41,28 @@ const operations = createSlice({
             state.chosenOperator = "";
         },
 
-        modifierButtonPress(state, action) {},
+        modifierButtonPress(state, action) {
+            if (action.payload === "+/-") {
+                // if a user hasn't entered a operator yet
+                // i.e. (inputValue: '123')
+                if (state.chosenOperator === "") {
+                    state.inputValue = "-" + state.inputValue;
+                }
+                //('123+' or '123+123') => we need to find the index of 'chosenOperator'
+                // add '-' right after the operator character in '123+123' case
+                // or add '-0' right after the operator character in '123+' case
+                else {
+                    const operatorIndex = state.inputValue.indexOf(
+                        state.chosenOperator
+                    );
+                    // i.e. '123+123' => inputValue = '123' +'-' + '123'
+                    state.inputValue =
+                        state.inputValue.slice(0, operatorIndex + 1) +
+                        "-" +
+                        (state.inputValue.slice(operatorIndex + 1) || "0");
+                }
+            }
+        },
     },
 });
 

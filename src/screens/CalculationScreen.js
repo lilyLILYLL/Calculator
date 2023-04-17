@@ -7,13 +7,22 @@ import { useSelector } from "react-redux";
 
 export const CalculationScreen = () => {
     const state = useSelector((state) => state);
+    // input values could('123+123' or '123' or '123+')
+    // we split the inputValue based on 'chosenOprator',
+    //if there exits a number behind the operator,(i.e. '123+123') we asign it as a outputValue(the value is displayed on Screen)
+    // otherwise,(i.e. '123' or '123+'), we display the first value
+    const numbers = state.inputValue.split(
+        state.chosenOperator === "" ? "#" : state.chosenOperator
+    );
+    const outputValue = numbers[1] ? numbers[1] : numbers[0];
+    console.log(numbers);
 
     console.log(state);
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar barStyle="light-content" />
             <View style={styles.display}>
-                <Text style={styles.result}>{state.outputValue}</Text>
+                <Text style={styles.result}>{outputValue}</Text>
             </View>
             <View style={styles.buttonBox}>
                 {buttons.map((item, index) => {
