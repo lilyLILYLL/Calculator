@@ -12,7 +12,7 @@ const operations = createSlice({
         numberPress(state, action) {
             console.log(action.payload);
             state.inputValue =
-                state.inputValue === "0" && action.payload !== ","
+                state.inputValue === "0" && action.payload !== "."
                     ? action.payload
                     : state.inputValue + action.payload;
         },
@@ -20,7 +20,7 @@ const operations = createSlice({
         operatorPress(state, action) {
             state.chosenOperator = action.payload;
             const lastElement = state.inputValue.slice(-1);
-            //is the last element is not a number (i.e. '123+'), it means we're trying to change the opartor
+            //if the last element is not a number (i.e. '123+'), it means we're trying to change the operator
             // we remove the last element in inputValue, then add new operator into inputValue
             if (isNaN(lastElement)) {
                 state.inputValue =
@@ -61,6 +61,8 @@ const operations = createSlice({
                         "-" +
                         (state.inputValue.slice(operatorIndex + 1) || "0");
                 }
+            }
+            if (action.payload === "%") {
             }
         },
     },

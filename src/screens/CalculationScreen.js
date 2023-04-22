@@ -4,23 +4,17 @@ import colors from "../constants/colors";
 import { Button } from "../components/Button";
 import buttons from "../constants/buttons";
 import { useSelector } from "react-redux";
+import { formatOutput } from "../constants/format";
 
 export const CalculationScreen = () => {
     const state = useSelector((state) => state);
-    // input values could('123+123' or '123' or '123+')
-    // we split the inputValue based on 'chosenOprator',
-    //if there exits a number behind the operator,(i.e. '123+123') we asign it as a outputValue(the value is displayed on Screen)
-    // otherwise,(i.e. '123' or '123+'), we display the first value
-    const numbers = state.inputValue.split(
-        state.chosenOperator === "" ? "#" : state.chosenOperator
-    );
-    const outputValue = numbers[1] ? numbers[1] : numbers[0];
-    console.log(numbers);
+    const outputValue = formatOutput(state.inputValue, state.chosenOperator);
+    console.log(outputValue);
 
-    console.log(state);
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar barStyle="light-content" />
+            <View style={styles.margin}></View>
             <View style={styles.display}>
                 <Text style={styles.result}>{outputValue}</Text>
             </View>
@@ -36,27 +30,29 @@ export const CalculationScreen = () => {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: colors.darkTheme,
-        flex: 1,
-        paddingLeft: 10,
-        paddingRight: 5,
+        flex: 5,
     },
+    margin: { flex: 1 },
+
     display: {
-        flex: 2,
+        flex: 1, // 2/5
         flexDirection: "column",
         justifyContent: "flex-end",
         alignItems: "flex-end",
         paddingVertical: 10,
         padding: 27,
+        backgroundColor: "pink",
     },
     result: {
         fontSize: 80,
         color: colors.white,
     },
     buttonBox: {
-        flexDirection: "row",
-        borderRadius: 5,
         width: "100%",
+        flex: 3, // 3/5
+        flexDirection: "row",
         flexWrap: "wrap",
-        flex: 3,
+        justifyContent: "space-around",
+        paddingHorizontal: 7,
     },
 });

@@ -103,7 +103,7 @@ export default [
     {
         name: ",",
         type: ButtonTypes.NUMBER,
-        value: ",",
+        value: ".",
     },
     {
         name: <EqualIcon />,

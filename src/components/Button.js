@@ -55,21 +55,23 @@ export const Button = ({ item }) => {
             <View style={customStyle}>
                 <Text style={customTextStyle}>{item.name}</Text>
             </View>
+            <View style={styles.gap}></View>
         </TouchableOpacity>
     );
 };
 
 const styles = StyleSheet.create({
     button: {
-        height: "43%",
-        width: "21%",
-        borderRadius: 50,
+        height: "41%",
+        width: "30%",
+        borderRadius: "110%",
         justifyContent: "center",
         alignItems: "center",
-        marginHorizontal: 5,
-        marginVertical: 4,
     },
     text: {
         fontSize: 35,
+    },
+    gap: {
+        height: "4%",
     },
 });
