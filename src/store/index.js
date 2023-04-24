@@ -3,11 +3,20 @@ import {
     operationSlice,
     numberPress,
     operatorPress,
-    modifierButtonPress,
+    plusMinusButtonPress,
     reset,
+    dotPress,
+    equalPress,
 } from "./slices/operationSlice";
 export const store = configureStore({
     reducer: operationSlice,
 });
 console.log(store.getState());
-export { numberPress, operatorPress, modifierButtonPress, reset };
+export {
+    numberPress,
+    operatorPress,
+    plusMinusButtonPress,
+    reset,
+    dotPress,
+    equalPress,
+};

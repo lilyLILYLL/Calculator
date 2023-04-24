@@ -4,19 +4,26 @@ import colors from "../constants/colors";
 import { Button } from "../components/Button";
 import buttons from "../constants/buttons";
 import { useSelector } from "react-redux";
-import { formatOutput } from "../constants/format";
+import { displayOutput, LENGTH_THRESHOLD } from "../constants/format";
 
 export const CalculationScreen = () => {
     const state = useSelector((state) => state);
-    const outputValue = formatOutput(state.inputValue, state.chosenOperator);
-    console.log(outputValue);
 
+    console.log(state);
+    const displayValue =
+        state.currentValue === ""
+            ? displayOutput(state.result)
+            : displayOutput(state.currentValue);
+
+    const resultFontSize = displayValue.length > LENGTH_THRESHOLD + 2 ? 60 : 80;
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar barStyle="light-content" />
             <View style={styles.margin}></View>
             <View style={styles.display}>
-                <Text style={styles.result}>{outputValue}</Text>
+                <Text style={[styles.result, { fontSize: resultFontSize }]}>
+                    {displayValue}
+                </Text>
             </View>
             <View style={styles.buttonBox}>
                 {buttons.map((item, index) => {
@@ -32,24 +39,21 @@ const styles = StyleSheet.create({
         backgroundColor: colors.darkTheme,
         flex: 5,
     },
-    margin: { flex: 1 },
 
     display: {
-        flex: 1, // 2/5
+        flex: 1.8, // 2/5
         flexDirection: "column",
         justifyContent: "flex-end",
         alignItems: "flex-end",
-        paddingVertical: 10,
-        padding: 27,
-        backgroundColor: "pink",
+        paddingRight: 25,
+        paddingBottom: 10,
     },
     result: {
-        fontSize: 80,
         color: colors.white,
     },
     buttonBox: {
         width: "100%",
-        flex: 3, // 3/5
+        flex: 3.2, // 3/5
         flexDirection: "row",
         flexWrap: "wrap",
         justifyContent: "space-around",

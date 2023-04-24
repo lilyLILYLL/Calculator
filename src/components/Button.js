@@ -5,55 +5,63 @@ import { ButtonTypes } from "../constants/buttons";
 import {
     numberPress,
     operatorPress,
-    modifierButtonPress,
+    plusMinusButtonPress,
     reset,
+    dotPress,
+    equalPress,
 } from "../store";
 import { useDispatch } from "react-redux";
+
 export const Button = ({ item }) => {
     const dispatch = useDispatch();
 
-    let backgroundColor;
-    let textColor;
     let handleOnPress;
-    if (item.type === ButtonTypes.NUMBER) {
-        backgroundColor = colors.darkgray;
-        textColor = colors.white;
-        handleOnPress = () => {
-            dispatch(numberPress(item.value));
-        };
-    } else if (item.type === ButtonTypes.OPERATOR) {
-        backgroundColor = colors.yellow;
-        textColor = colors.white;
-        handleOnPress = () => {
-            dispatch(operatorPress(item.value));
-        };
-    } else {
-        backgroundColor = colors.lightgray;
-        if (item.name === "AC") {
-            handleOnPress = () => {
-                dispatch(reset());
-            };
-        } else if (item.value === "+/-") {
-            handleOnPress = () => {
-                dispatch(modifierButtonPress("+/-"));
-            };
-        } else {
-            handleOnPress = () => {
-                dispatch(modifierButtonPress("%"));
-            };
-        }
+    switch (item.type) {
+        case ButtonTypes.NUMBER:
+            handleOnPress = () => dispatch(numberPress(item.value));
+            break;
+        case ButtonTypes.OPERATOR:
+            handleOnPress = () => dispatch(operatorPress(item.value));
+            break;
+        case ButtonTypes.RESET:
+            handleOnPress = () => dispatch(reset());
+            break;
+        case ButtonTypes.PLUS_MINUS:
+            handleOnPress = () => dispatch(plusMinusButtonPress());
+            break;
+        case ButtonTypes.DOT:
+            handleOnPress = () => dispatch(dotPress());
+            break;
+        case ButtonTypes.EQUAL:
+            handleOnPress = () => dispatch(equalPress());
+            break;
     }
+
+    const backgroundColor =
+        item.type === ButtonTypes.NUMBER
+            ? colors.darkgray
+            : item.type === ButtonTypes.OPERATOR
+            ? colors.yellow
+            : colors.lightgray;
+
+    const textColor =
+        item.type === ButtonTypes.NUMBER || item.type === ButtonTypes.OPERATOR
+            ? colors.white
+            : colors.black;
+
     const width = item.name === "0" ? 180 : 85;
-    const customStyle = [
-        styles.button,
-        { backgroundColor: backgroundColor, width: width },
-    ];
-    const customTextStyle = [styles.text, { color: textColor }];
 
     return (
         <TouchableOpacity onPress={handleOnPress}>
-            <View style={customStyle}>
-                <Text style={customTextStyle}>{item.name}</Text>
+            <View
+                style={[
+                    styles.button,
+                    { backgroundColor: backgroundColor, width: width },
+                ]}
+            >
+                <Text style={[styles.text, { color: textColor }]}>
+                    {item.name}
+                </Text>
             </View>
             <View style={styles.gap}></View>
         </TouchableOpacity>
@@ -62,8 +70,8 @@ export const Button = ({ item }) => {
 
 const styles = StyleSheet.create({
     button: {
-        height: "41%",
-        width: "30%",
+        height: "39%",
+        width: 85,
         borderRadius: "110%",
         justifyContent: "center",
         alignItems: "center",
@@ -72,6 +80,6 @@ const styles = StyleSheet.create({
         fontSize: 35,
     },
     gap: {
-        height: "4%",
+        height: "6%",
     },
 });

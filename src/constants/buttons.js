@@ -9,25 +9,29 @@ import {
 } from "../components/Icons";
 
 export const ButtonTypes = {
-    MODIFIER: "modifier",
     OPERATOR: "operator",
     NUMBER: "number",
+    RESET: "AC",
+    PLUS_MINUS: "+/-",
+    PERCENT: "%",
+    DOT: ",",
+    EQUAL: "=",
 };
 
 export default [
     {
         name: "AC",
-        type: ButtonTypes.MODIFIER,
+        type: ButtonTypes.RESET,
         value: "AC",
     },
     {
         name: <PlusMinusIcon />,
-        type: ButtonTypes.MODIFIER,
+        type: ButtonTypes.PLUS_MINUS,
         value: "+/-",
     },
     {
         name: <PercentIcon />,
-        type: ButtonTypes.MODIFIER,
+        type: ButtonTypes.PERCENT,
         value: "%",
     },
     {
@@ -102,12 +106,12 @@ export default [
     },
     {
         name: ",",
-        type: ButtonTypes.NUMBER,
+        type: ButtonTypes.DOT,
         value: ".",
     },
     {
         name: <EqualIcon />,
-        type: ButtonTypes.OPERATOR,
+        type: ButtonTypes.EQUAL,
         value: "=",
     },
 ];
