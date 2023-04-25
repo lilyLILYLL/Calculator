@@ -11,7 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "discripttion":"This is a calculator",
+    "descripttion":"This is a calculator",
     "assetBundlePatterns": [
       "**/*"
     ],
