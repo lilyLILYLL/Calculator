@@ -21,7 +21,7 @@ export const CalculationScreen = () => {
             <StatusBar barStyle="light-content" />
             <View style={styles.margin}></View>
             <View style={styles.display}>
-                <Text style={[styles.result, { fontSize: resultFontSize }]}>
+                <Text style={[{ fontSize: resultFontSize }, styles.result]}>
                     {displayValue}
                 </Text>
             </View>
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
         justifyContent: "flex-end",
         alignItems: "flex-end",
         paddingRight: 25,
-        paddingBottom: 10,
+        paddingBottom: 20,
     },
     result: {
         color: colors.white,

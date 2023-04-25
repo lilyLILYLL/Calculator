@@ -41,18 +41,8 @@ export const Button = ({ item }) => {
             break;
     }
 
-    const backgroundColor =
-        item.type === ButtonTypes.NUMBER
-            ? colors.darkgray
-            : item.type === ButtonTypes.OPERATOR
-            ? colors.yellow
-            : colors.lightgray;
-
-    const textColor =
-        item.type === ButtonTypes.NUMBER || item.type === ButtonTypes.OPERATOR
-            ? colors.white
-            : colors.black;
-
+    const backgroundColor = item.backgroundColor;
+    const textColor = item.color;
     const width = item.name === "0" ? 180 : 85;
 
     return (
@@ -74,7 +64,7 @@ export const Button = ({ item }) => {
 
 const styles = StyleSheet.create({
     button: {
-        height: "39%",
+        height: "38%",
         width: 85,
         borderRadius: "110%",
         justifyContent: "center",
