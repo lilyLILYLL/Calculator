@@ -7,6 +7,7 @@ import {
     reset,
     dotPress,
     equalPress,
+    percentButtonPress,
 } from "./slices/operationSlice";
 export const store = configureStore({
     reducer: operationSlice,
@@ -19,4 +20,5 @@ export {
     reset,
     dotPress,
     equalPress,
+    percentButtonPress,
 };

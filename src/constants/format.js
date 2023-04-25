@@ -2,6 +2,9 @@ import { format, string } from "mathjs";
 
 export const COMMA = ",";
 export const DOT = ".";
+export const EQUAL = "=";
+export const MINUS = "-";
+export const TWO_MINUS = "--";
 export const MAX_LENGTH = 9;
 export const LENGTH_THRESHOLD = 6;
 
@@ -21,5 +24,11 @@ export const formatResult = (outputValue) => {
 };
 
 export const displayOutput = (value) => {
-    return value.replace(DOT, COMMA).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return value
+        .replace(DOT, COMMA)
+        .replace("+", "")
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+};
+export const cal = (inputValue) => {
+    return eval(inputValue).toString();
 };

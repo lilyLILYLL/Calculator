@@ -15,7 +15,7 @@ export const CalculationScreen = () => {
             ? displayOutput(state.result)
             : displayOutput(state.currentValue);
 
-    const resultFontSize = displayValue.length > LENGTH_THRESHOLD + 2 ? 60 : 80;
+    const resultFontSize = displayValue.length > LENGTH_THRESHOLD + 2 ? 60 : 75;
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar barStyle="light-content" />

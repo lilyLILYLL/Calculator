@@ -9,6 +9,7 @@ import {
     reset,
     dotPress,
     equalPress,
+    percentButtonPress,
 } from "../store";
 import { useDispatch } from "react-redux";
 
@@ -34,6 +35,9 @@ export const Button = ({ item }) => {
             break;
         case ButtonTypes.EQUAL:
             handleOnPress = () => dispatch(equalPress());
+            break;
+        case ButtonTypes.PERCENT:
+            handleOnPress = () => dispatch(percentButtonPress());
             break;
     }
 
