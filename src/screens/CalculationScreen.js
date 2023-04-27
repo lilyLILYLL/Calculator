@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
         alignItems: "flex-end",
         paddingRight: 25,
         paddingBottom: 20,
-        backgroundColor: "pink",
     },
     result: {
         color: colors.white,
