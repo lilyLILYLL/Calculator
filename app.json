@@ -2,7 +2,6 @@
   "expo": {
     "name": "Calculator",
     "slug": "Calculator",
-    "privacy":"public",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
@@ -11,7 +10,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "descripttion":"This is a calculator",
+    "description":"This is a calculator",
     "assetBundlePatterns": [
       "**/*"
     ],

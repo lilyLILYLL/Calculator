@@ -8,8 +8,8 @@ import { displayOutput, LENGTH_THRESHOLD } from "../constants/format";
 
 export const CalculationScreen = () => {
     const state = useSelector((state) => state);
-
     console.log(state);
+
     const displayValue =
         state.currentValue === ""
             ? displayOutput(state.result)
@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
         alignItems: "flex-end",
         paddingRight: 25,
         paddingBottom: 20,
+        backgroundColor: "pink",
     },
     result: {
         color: colors.white,

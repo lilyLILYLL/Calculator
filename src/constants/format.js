@@ -23,12 +23,20 @@ export const formatResult = (outputValue) => {
         : formatString(outputValue, MAX_LENGTH);
 };
 
+// replace dot by comma, and also get rid of '+' sign when result comes to something like '1e+18
+// add '.' after 3 digits
 export const displayOutput = (value) => {
-    return value
-        .replace(DOT, COMMA)
-        .replace("+", "")
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    let output = value.replace(DOT, COMMA).replace("+", "");
+    return parseFloat(output) > 0
+        ? output.replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+        : output;
 };
+
 export const cal = (inputValue) => {
+    if (isNaN(inputValue.slice(-1))) {
+        inputValue = inputValue.slice(0, -1);
+    }
+    console.log(inputValue);
+
     return eval(inputValue).toString();
 };

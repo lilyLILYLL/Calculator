@@ -11,10 +11,11 @@ import {
     equalPress,
     percentButtonPress,
 } from "../store";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export const Button = ({ item }) => {
     const dispatch = useDispatch();
+    const chosenOperator = useSelector((state) => state.operator);
 
     let handleOnPress;
     switch (item.type) {
@@ -41,8 +42,11 @@ export const Button = ({ item }) => {
             break;
     }
 
-    const backgroundColor = item.backgroundColor;
-    const textColor = item.color;
+    // if an oparator is chosen (active), we swap backgroundColor and textColor
+    const backgroundColor =
+        item.value === chosenOperator ? item.color : item.backgroundColor;
+    const textColor =
+        item.value === chosenOperator ? item.backgroundColor : item.color;
     const width = item.name === "0" ? 180 : 85;
 
     return (
@@ -64,9 +68,9 @@ export const Button = ({ item }) => {
 
 const styles = StyleSheet.create({
     button: {
-        height: "38%",
+        height: 85,
         width: 85,
-        borderRadius: "110%",
+        borderRadius: 85,
         justifyContent: "center",
         alignItems: "center",
     },
@@ -74,6 +78,6 @@ const styles = StyleSheet.create({
         fontSize: 35,
     },
     gap: {
-        height: "6%",
+        height: "10%",
     },
 });
