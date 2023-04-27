@@ -14,6 +14,7 @@
 ## Tech/Framework used
   * React Native
   * Expo
+  * Redux
   
 ## Authors and contributors
 * Lilly Nguyen
